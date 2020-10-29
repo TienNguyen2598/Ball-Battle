@@ -40,12 +40,9 @@ public class EndRoundManager : MonoBehaviour
         }
         else if (ball.GetComponent<BallSolve>().isGoal == true)
         {
-            ball.GetComponent<BallSolve>().isGoal = false;
             b_score++;
-
-            BlueScore.text = b_score.ToString();
-            UIScore.SetActive(true);
-            endRound = true;
+            StartCoroutine(WaitingTime(3f));
+            //AttackerWin();
         }
         else if (GameObject.Find("UI In Game").GetComponent<UIManager>().u_time.text == "0" && endRound == false)
         {
@@ -83,18 +80,32 @@ public class EndRoundManager : MonoBehaviour
     public void StartPause()
     {
         // how many seconds to pause the game
-        StartCoroutine(PauseGame(5f));
+        StartCoroutine(PauseGame(timeRemaining));
     }
-    IEnumerator PauseGame(float pauseTIme)
+    IEnumerator PauseGame(float s)
     {
         Time.timeScale = 0f;
-        float pauseEndTime = Time.realtimeSinceStartup + timeRemaining;
+        float pauseEndTime = Time.realtimeSinceStartup + s;
         while (Time.realtimeSinceStartup < pauseEndTime)
         {
             yield return 0;
         }
         Time.timeScale = 1f;
         EndMatch();
+    }
+
+    IEnumerator WaitingTime(float s)
+    {
+        float pauseEndTime = Time.realtimeSinceStartup + s;
+
+        ball.GetComponent<BallSolve>().boom.gameObject.SetActive(true);
+        ball.GetComponent<BallSolve>().isGoal = false;
+        while (Time.realtimeSinceStartup < pauseEndTime)
+        {
+            yield return 0;
+        }
+        //EndMatch();
+        AttackerWin();
     }
 
     void EndMatch()
@@ -120,6 +131,13 @@ public class EndRoundManager : MonoBehaviour
         {
             Destroy(obj[i]);
         }
+    }
+
+    void AttackerWin()
+    {
+        BlueScore.text = b_score.ToString();
+        UIScore.SetActive(true);
+        endRound = true;
     }
     
 }

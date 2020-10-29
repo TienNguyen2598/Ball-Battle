@@ -10,6 +10,8 @@ public class DefenderHandle : ManagerDefender
     public GameObject parent;
     public GameObject collide;
     public Material[] d_materials;
+    public ParticleSystem particleCircle;
+
     GameObject target;
     Vector3 lookAtTarget;
     Vector3 prePos;
@@ -25,6 +27,7 @@ public class DefenderHandle : ManagerDefender
     //bool noDetected = false;
     private void Start()
     {
+        particleCircle.gameObject.SetActive(true);
         prePos = new Vector3(GameObject.Find("Plane").GetComponent<RoundManager>().point.x, 
             0, GameObject.Find("Plane").GetComponent<RoundManager>().point.z); 
     }

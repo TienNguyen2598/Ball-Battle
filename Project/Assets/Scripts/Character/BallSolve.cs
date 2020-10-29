@@ -6,6 +6,7 @@ using UnityEngine;
 public class BallSolve : MonoBehaviour
 {
     public List<Transform> players = new List<Transform>();
+    public ParticleSystem boom;
     public GameObject attacker;
     public float speedBall = 1.5f;
     [HideInInspector]
@@ -24,7 +25,7 @@ public class BallSolve : MonoBehaviour
         {
             //Debug.Log(isGoal);
             isGoal = true;
-            transform.gameObject.SetActive(false);
+            //transform.gameObject.SetActive(false);
         }
         if (other.gameObject.tag == "Attacker")
         {

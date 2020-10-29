@@ -8,6 +8,7 @@ public class AttackerHandle : CharacterManager
 {
     public Material[] t_materials; 
     public float carryingSpeed = 0.75f;
+    public ParticleSystem par;
     GameObject t_ball;
     bool t_isOwnBall = false;
     bool t_detectBall = false;
@@ -19,6 +20,7 @@ public class AttackerHandle : CharacterManager
     public bool isCollided = false;
     [HideInInspector]
     public int scoreBlue = 0;
+    bool stop = false;
 
     private void Start()
     {
@@ -37,7 +39,8 @@ public class AttackerHandle : CharacterManager
         {
             if (transform.tag == "CarryingAttacker")
             {
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
+                stop = true;
             }
             if (transform.tag == "Attacker")
             {
@@ -126,44 +129,50 @@ public class AttackerHandle : CharacterManager
 
     private void FixedUpdate()
     {
-        // all attacker team move forward pos ball
-        if (GameObject.Find("GameManager").GetComponent<GamePlay>().hasCarryingPlayer == false && !isCollided)
+         if(stop == false)
         {
-            Move(t_ball.transform.position, t_normalSpeed);
-            t_movingNormal = true;
-            t_detectBall = true;
-        }
-        if(isCollided == false)
-        {
-            if (t_isOwnBall == true)
+            // all attacker team move forward pos ball
+            if (GameObject.Find("GameManager").GetComponent<GamePlay>().hasCarryingPlayer == false && !isCollided)
             {
-                //change tag of parent carry ball
-                ChangeTagAndLayer("CarryingAttacker", 10);
-                //set child of carrying attacker when attacker move the ball move follows 
-                t_ball.transform.SetParent(transform.GetChild(1));
-                transform.GetComponent<Renderer>().material.SetFloat("_Metallic", 1f);
-                t_ball.GetComponent<BallSolve>().collide = true;
-                t_ball.transform.localPosition = new Vector3(0, 0, 0);
-                
-                MoveStraight(carryingSpeed);
+                Move(t_ball.transform.position, t_normalSpeed);
+                t_movingNormal = true;
+                t_detectBall = true;
             }
-            // the others moved straight
-            else if (t_isOwnBall == false && GameObject.Find("GameManager").GetComponent<GamePlay>().hasCarryingPlayer == true)
+            if (isCollided == false)
             {
-                MoveStraight(t_normalSpeed);
+                if (t_isOwnBall == true)
+                {
+                    par.gameObject.SetActive(true);
+                    //change tag of parent carry ball
+                    ChangeTagAndLayer("CarryingAttacker", 10);
+                    //set child of carrying attacker when attacker move the ball move follows 
+                    t_ball.transform.SetParent(transform.GetChild(1));
+                    transform.GetComponent<Renderer>().material.SetFloat("_Metallic", 1f);
+                    t_ball.GetComponent<BallSolve>().collide = true;
+                    t_ball.transform.localPosition = new Vector3(0, 0, 0);
+
+                    MoveStraight(carryingSpeed);
+                }
+                // the others moved straight
+                else if (t_isOwnBall == false && GameObject.Find("GameManager").GetComponent<GamePlay>().hasCarryingPlayer == true)
+                {
+                    par.gameObject.SetActive(false);
+                    MoveStraight(t_normalSpeed);
+                }
             }
-        }
-        else if(isCollided)
-        {
-            //Cooldown time reactivate
-            timeLimitTmp += Time.deltaTime;
-            if (timeLimitTmp >= t_reactivateTime)
+            else if (isCollided)
             {
-                ChangeTagAndLayer("Attacker", 8);
-                timeLimitTmp = 0f;
-                transform.GetComponent<MeshRenderer>().material = t_materials[1];
-                isCollided = false;
-                t_isOwnBall = false;
+                par.gameObject.SetActive(false);
+                //Cooldown time reactivate
+                timeLimitTmp += Time.deltaTime;
+                if (timeLimitTmp >= t_reactivateTime)
+                {
+                    ChangeTagAndLayer("Attacker", 8);
+                    timeLimitTmp = 0f;
+                    transform.GetComponent<MeshRenderer>().material = t_materials[1];
+                    isCollided = false;
+                    t_isOwnBall = false;
+                }
             }
         }
     }

@@ -2296,6 +2296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
+  boom: {fileID: 0}
   attacker: {fileID: 8965183539952978537, guid: 56aee3ecf5f17ee40a1d0843a605572f,
     type: 3}
   speedBall: 1.5
@@ -2976,8 +2977,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.722401, y: 1.5489396, z: 0.74001116}
-  m_Center: {x: -0.8611995, y: 0.017959084, z: -0.12999497}
+  m_Size: {x: 2.722401, y: 1.5489396, z: 0.13047414}
+  m_Center: {x: -0.8611995, y: 0.017959084, z: 0.0832355}
 --- !u!1 &1473765314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3659,6 +3660,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 161617005427766698, guid: 4fa017f2a0de2c94d870a34e56f2a975,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4196579381962919486, guid: 4fa017f2a0de2c94d870a34e56f2a975,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4196579381962919486, guid: 4fa017f2a0de2c94d870a34e56f2a975,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4196579381962919486, guid: 4fa017f2a0de2c94d870a34e56f2a975,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4196579381962919486, guid: 4fa017f2a0de2c94d870a34e56f2a975,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6235655973645146336, guid: 4fa017f2a0de2c94d870a34e56f2a975,
         type: 3}
       propertyPath: m_LocalPosition.x
