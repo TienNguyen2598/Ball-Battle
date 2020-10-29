@@ -14,6 +14,8 @@ public class RoundManager : MonoBehaviour
     public GameObject t_redPlayer;
     public int numOfTeam = 0;
     [HideInInspector]
+    public int numPlayer = 0;
+    [HideInInspector]
     static int t_checkTeamAttack = 0;//1 - attacker, 2 - defender
     [HideInInspector]
     public Vector3 point;
@@ -29,16 +31,22 @@ public class RoundManager : MonoBehaviour
         if(t_checkTeamAttack == 0)
         {
             t_checkTeamAttack = 1;
+            GameObject.Find("UI In Game").GetComponent<UIManager>().namePlayer[0].text = "Player (Attacker)";
+            GameObject.Find("UI In Game").GetComponent<UIManager>().namePlayer[1].text = "Enemy - AI (Defender)";
             return;
         }
         else if(t_checkTeamAttack == 1)
         {
             t_checkTeamAttack = 2;
+            GameObject.Find("UI In Game").GetComponent<UIManager>().namePlayer[1].text = "Enemy - AI (Attacker)";
+            GameObject.Find("UI In Game").GetComponent<UIManager>().namePlayer[0].text = "Player (Defender)";
             return;
         }
         else if(t_checkTeamAttack == 2)
         {
             t_checkTeamAttack = 1;
+            GameObject.Find("UI In Game").GetComponent<UIManager>().namePlayer[0].text = "Player (Attacker)";
+            GameObject.Find("UI In Game").GetComponent<UIManager>().namePlayer[1].text = "Enemy - AI(Defender)";
             return;
         }
     }
@@ -87,7 +95,7 @@ public class RoundManager : MonoBehaviour
                 energyPercent = GameObject.Find("UI In Game").GetComponent<UIManager>().energy[1].fillAmount * GameObject.Find("GameManager").GetComponent<GameManager>().energyBar;
                 if (energyPercent >= t_bluePlayer.GetComponent<AttackerHandle>().t_energyCost)
                 {
-                    
+                    numPlayer++;
                     Instantiate(t_bluePlayer, new Vector3(point.x, t_bluePlayer.transform.position.y, point.z), Quaternion.identity);
                     preObject = t_type;// assignment name of type spawn;
                     timeTmp = 0;
@@ -100,7 +108,6 @@ public class RoundManager : MonoBehaviour
                 energyPercent = GameObject.Find("UI In Game").GetComponent<UIManager>().energy[0].fillAmount * GameObject.Find("GameManager").GetComponent<GameManager>().energyBar;
                 if (energyPercent >= t_redPlayer.GetComponent<ManagerDefender>().t_energyCost)
                 {
-                    Debug.Log(energyPercent);
                     Instantiate(t_redPlayer, new Vector3(point.x, t_redPlayer.transform.position.y, point.z), Quaternion.identity);
                     preObject = t_type; // assignment name of type spawn;
                     timeTmp = 0;

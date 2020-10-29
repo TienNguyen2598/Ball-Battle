@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
 
     public Image[] energy;
     public Image[] highlight;
+
+    public Text[] namePlayer;
+
     [HideInInspector]
     public Text u_time;
     int maxPointEnergy;

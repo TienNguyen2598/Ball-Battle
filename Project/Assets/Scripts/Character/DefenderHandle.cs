@@ -35,7 +35,6 @@ public class DefenderHandle : ManagerDefender
     {
         if (collide.GetComponent<FollowObj>().isDetect == true && isDetection == false && isReturning == false)
         {
-            //Debug.Log("a");
             target = GameObject.FindWithTag("CarryingAttacker");
             nameTag = "CarryingAttacker";
             isDetection = true;
@@ -53,6 +52,18 @@ public class DefenderHandle : ManagerDefender
             target = null;
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (/*other.gameObject.tag == "Cooldown" ||*/ other.gameObject.tag == "CarryingAttacker")
+        {
+            isDetection = false;
+            isReturning = true;
+            collided = true;
+            target = null;
+        }
+    }
+
 
     private void Update()
     {

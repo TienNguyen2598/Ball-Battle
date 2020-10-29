@@ -8,6 +8,7 @@ public class AttackerHandle : CharacterManager
 {
     public Material[] t_materials; 
     public float carryingSpeed = 0.75f;
+    
     public ParticleSystem par;
     GameObject t_ball;
     bool t_isOwnBall = false;
@@ -30,7 +31,6 @@ public class AttackerHandle : CharacterManager
     {
         if(other.gameObject.tag == "Ball" && t_detectBall == true)
         {
-            //t_moving = true;
             t_movingNormal = false;
             t_isOwnBall = true;
             t_detectBall = false;
@@ -39,11 +39,11 @@ public class AttackerHandle : CharacterManager
         {
             if (transform.tag == "CarryingAttacker")
             {
-                //Destroy(this.gameObject);
                 stop = true;
             }
             if (transform.tag == "Attacker")
             {
+                GameObject.Find("Plane").GetComponent<RoundManager>().numPlayer--;
                 Destroy(this.gameObject);
             }
         }
@@ -56,11 +56,13 @@ public class AttackerHandle : CharacterManager
 
                 transform.GetComponent<Renderer>().material.SetFloat("_Metallic", 0.4f);
             }
+            GameObject.Find("Plane").GetComponent<RoundManager>().numPlayer--;
             Destroy(this.gameObject);
         }
         if (other.gameObject.tag == "Defender" && other.gameObject.layer == 9)
         {
             t_ball.transform.SetParent(null);
+            GameObject.Find("Plane").GetComponent<RoundManager>().numPlayer--;
             ChangeTagAndLayer("Cooldown", 8);
             transform.GetComponent<MeshRenderer>().material = t_materials[0];
 
@@ -167,6 +169,7 @@ public class AttackerHandle : CharacterManager
                 timeLimitTmp += Time.deltaTime;
                 if (timeLimitTmp >= t_reactivateTime)
                 {
+                    GameObject.Find("Plane").GetComponent<RoundManager>().numPlayer++;
                     ChangeTagAndLayer("Attacker", 8);
                     timeLimitTmp = 0f;
                     transform.GetComponent<MeshRenderer>().material = t_materials[1];
@@ -179,13 +182,3 @@ public class AttackerHandle : CharacterManager
 }
 
 
-//error: 
-//1. this is no detect then defender standing
-//2. ball move so fast
-//3. material error
-
-//addition
-//ball collide goal to win -> score blue
-//attacker collide fence then ball move to nearest attacker
-//end attacker callide the defender to lose -> score red
-//hight light energy

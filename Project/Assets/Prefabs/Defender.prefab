@@ -395,7 +395,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 11
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4820,7 +4820,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dc16bfa276a05cf4488b4b2b3e3cb290, type: 2}
+  - {fileID: 2100000, guid: 8a902d328332a4e4da4ade0e0f98a362, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4885,6 +4885,11 @@ PrefabInstance:
     - target: {fileID: -3998004438635360505, guid: 5b4b473d3f4b85f4f819e1cca3d802ce,
         type: 3}
       propertyPath: p
+      value: 
+      objectReference: {fileID: 3788878960234881788}
+    - target: {fileID: -3998004438635360505, guid: 5b4b473d3f4b85f4f819e1cca3d802ce,
+        type: 3}
+      propertyPath: particleCircle
       value: 
       objectReference: {fileID: 3788878960234881788}
     - target: {fileID: 673089405774992277, guid: 5b4b473d3f4b85f4f819e1cca3d802ce,

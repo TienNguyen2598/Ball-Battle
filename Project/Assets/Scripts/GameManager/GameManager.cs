@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int match;
+    public static int match;
+    public int matchTmp;
     public int timeLimit;
     public int energyBar;
     private Vector3 t_position;
@@ -20,10 +21,13 @@ public class GameManager : MonoBehaviour
     }
     void Aware()
     {
-        
         MakeSingleton();
     }
 
+    private void Start()
+    {
+        match = matchTmp;
+    }
 
     private void MakeSingleton()
     {

@@ -15,23 +15,21 @@ public class BallSolve : MonoBehaviour
     public bool isLose = false;
     [HideInInspector]
     public bool collide = false;
-    [HideInInspector]
     bool isMove = false;
 
-    //private List<float> posList;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag== "Gate")
+        if (other.gameObject.tag == "Gate")
         {
             //Debug.Log(isGoal);
             isGoal = true;
-            //transform.gameObject.SetActive(false);
+            transform.gameObject.SetActive(false);
         }
         if (other.gameObject.tag == "Attacker")
         {
             isMove = false;
         }
-        if(other.gameObject.tag == "Fence")
+        if (other.gameObject.tag == "Fence")
         {
             isMove = true;
             collide = true;
@@ -41,7 +39,7 @@ public class BallSolve : MonoBehaviour
     private void MoveBall(Transform posPlayer)
     {
         transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, transform.position.y,
-            transform.position.z), new Vector3(posPlayer.position.x, transform.position.y,  posPlayer.position.z), speedBall * Time.deltaTime);
+            transform.position.z), new Vector3(posPlayer.position.x, transform.position.y, posPlayer.position.z), speedBall * Time.deltaTime);
     }
 
     private int FindPositionWithNearestObj()
@@ -50,13 +48,13 @@ public class BallSolve : MonoBehaviour
         float x = 0;
         if (players.Count > 0)
         {
-             x = Vector3.Distance(players[0].position, transform.position);
+            x = Vector3.Distance(players[0].position, transform.position);
         }
-        
-        for (int i = 1; i< players.Count; i++)
+
+        for (int i = 1; i < players.Count; i++)
         {
-            float tmp =  Vector3.Distance(players[i].position, transform.position);
-            if(x > tmp)
+            float tmp = Vector3.Distance(players[i].position, transform.position);
+            if (x > tmp)
             {
                 x = tmp;
                 nearest = i;
@@ -76,7 +74,6 @@ public class BallSolve : MonoBehaviour
             {
                 players.Add(foundOnce.transform);
             }
-            Debug.Log(FindPositionWithNearestObj());
             collide = false;
             isMove = true;
         }
@@ -84,7 +81,7 @@ public class BallSolve : MonoBehaviour
         {
             players.Clear();
         }
-        else if (collide == true && players.Count == 0 && isLose == false && isGoal == false)
+        else if (collide == true && GameObject.Find("Plane").GetComponent<RoundManager>().numPlayer <= 1 && isLose == false && isGoal == false )
         {
             isLose = true;
             transform.gameObject.SetActive(false);

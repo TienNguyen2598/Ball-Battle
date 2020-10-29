@@ -11,7 +11,6 @@ public class FollowObj : MonoBehaviour
     {
         if (other.gameObject.tag == "CarryingAttacker" && FollowThisObj.GetComponent<DefenderHandle>().isDetection == false && isDetect == false)
         {
-            //Debug.Log("a");
             isDetect = true;
         }
     }
@@ -19,7 +18,6 @@ public class FollowObj : MonoBehaviour
     {
         if (other.gameObject.tag == "CarryingAttacker" && FollowThisObj.GetComponent<DefenderHandle>().isDetection == false && isDetect == false)
         {
-            Debug.Log("b");
             isDetect = true;
         }
     }
@@ -28,7 +26,6 @@ public class FollowObj : MonoBehaviour
     {
         if (other.gameObject.tag == "CarryingAttacker" && FollowThisObj.GetComponent<DefenderHandle>().isDetection == false && isDetect == false)
         {
-            //Debug.Log("c");
             isDetect = true;
         }
     }
